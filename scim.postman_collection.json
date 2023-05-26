@@ -1,0 +1,786 @@
+{
+	"variables": [],
+	"info": {
+		"name": "scim",
+		"_postman_id": "9225cadb-02a7-c76d-1bfc-370b8121f3e7",
+		"description": "Core SCIM server implementation requests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "token",
+			"request": {
+				"url": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/token",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2NpbS1hcHBsaWNhdGlvbi1hZG1pbjpjaGFuZ2VpdA==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "user create",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{personify-scim-server-user}}",
+						"password": "{{personify-scim-server-password}}",
+						"showPassword": false
+					}
+				},
+				"url": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Users",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n    ],\n    \"id\" : \"b18fd14b-3d68-4dd7-a22a-b0434c1f755d\",\n    \"name\": {\n        \"familyName\": \"Simpson\",\n        \"givenName\": \"Homer\"\n    },\n    \"userName\": \"simpsonh\",\n    \"password\": \"{{personify-scim-server-password}}\",\n    \"externalId\": \"homers\",\n    \"emails\": [\n        {\n            \"value\": \"homer@personify.be\",\n            \"type\": \"work\"\n        }\n    ]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "user get",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{personify-scim-server-user}}",
+						"password": "{{personify-scim-server-password}}",
+						"showPassword": false
+					}
+				},
+				"url": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Users/b18fd14b-3d68-4dd7-a22a-b0434c1f755d",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "user search",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{personify-scim-server-user}}",
+						"password": "{{personify-scim-server-password}}",
+						"showPassword": false
+					}
+				},
+				"url": {
+					"raw": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Users?startIndex=1&count=10",
+					"protocol": "{{personify-scim-server-protocol}}",
+					"host": [
+						"{{personify-scim-server-host}}"
+					],
+					"path": [
+						"scim",
+						"v2",
+						"Users"
+					],
+					"query": [
+						{
+							"key": "startIndex",
+							"value": "1",
+							"equals": true
+						},
+						{
+							"key": "count",
+							"value": "10",
+							"equals": true
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "user search with filter",
+			"request": {
+				"url": {
+					"raw": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Users?filter=userName eq lisas and externalId ne homer and externalId pr&sortBy=externalId&sortOrder=ascending",
+					"protocol": "{{personify-scim-server-protocol}}",
+					"host": [
+						"{{personify-scim-server-host}}"
+					],
+					"path": [
+						"scim",
+						"v2",
+						"Users"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "userName eq lisas and externalId ne homer and externalId pr",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "sortBy",
+							"value": "externalId",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "sortOrder",
+							"value": "ascending",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2NpbS11c2VyOmNoYW5nZWl0",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "user search with filter on subattributes",
+			"request": {
+				"url": {
+					"raw": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Users?attributes=userName&filter=name.familyName eq Simpson",
+					"protocol": "{{personify-scim-server-protocol}}",
+					"host": [
+						"{{personify-scim-server-host}}"
+					],
+					"path": [
+						"scim",
+						"v2",
+						"Users"
+					],
+					"query": [
+						{
+							"key": "attributes",
+							"value": "userName",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "filter",
+							"value": "name.familyName eq Simpson",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2NpbS11c2VyOmNoYW5nZWl0",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "user search with filter on lastmodified",
+			"request": {
+				"url": {
+					"raw": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Users?filter=meta.lastModified ge 2020-10-27T08:22:37.995Z",
+					"protocol": "{{personify-scim-server-protocol}}",
+					"host": [
+						"{{personify-scim-server-host}}"
+					],
+					"path": [
+						"scim",
+						"v2",
+						"Users"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "meta.lastModified ge 2020-10-27T08:22:37.995Z",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2NpbS11c2VyOmNoYW5nZWl0",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "user search attributes",
+			"request": {
+				"url": {
+					"raw": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Users?attributes=userName",
+					"protocol": "{{personify-scim-server-protocol}}",
+					"host": [
+						"{{personify-scim-server-host}}"
+					],
+					"path": [
+						"scim",
+						"v2",
+						"Users"
+					],
+					"query": [
+						{
+							"key": "attributes",
+							"value": "userName",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2NpbS11c2VyOmNoYW5nZWl0",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "user search excludedAttributes",
+			"request": {
+				"url": {
+					"raw": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Users?excludedAttributes=meta",
+					"protocol": "{{personify-scim-server-protocol}}",
+					"host": [
+						"{{personify-scim-server-host}}"
+					],
+					"path": [
+						"scim",
+						"v2",
+						"Users"
+					],
+					"query": [
+						{
+							"key": "excludedAttributes",
+							"value": "meta",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2NpbS11c2VyOmNoYW5nZWl0",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "user update",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{personify-scim-server-user}}",
+						"password": "{{personify-scim-server-password}}",
+						"showPassword": false
+					}
+				},
+				"url": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Users/b18fd14b-3d68-4dd7-a22a-b0434c1f755d",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n    ],\n    \"name\": {\n        \"familyName\": \"Simpson\",\n        \"givenName\": \"Homer\"\n    },\n    \"userName\": \"simpsonh\",\n    \"password\": \"{{personify-scim-server-password}}\",\n    \"externalId\": \"homers\",\n    \"emails\": [\n        {\n            \"value\": \"homer.simpson@personify.be\",\n            \"type\": \"work\"\n        }\n    ],\n    \"id\": \"b18fd14b-3d68-4dd7-a22a-b0434c1f755d\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "user patch",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{personify-scim-server-user}}",
+						"password": "{{personify-scim-server-password}}",
+						"showPassword": false
+					}
+				},
+				"url": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Users/b18fd14b-3d68-4dd7-a22a-b0434c1f755d",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n    ],\n    \"emails\": [\n        {\n            \"value\": \"homer.simpson@personify.be\",\n            \"type\": \"home\"\n        }\n    ],\n    \"id\": \"b18fd14b-3d68-4dd7-a22a-b0434c1f755d\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "user delete",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{personify-scim-server-user}}",
+						"password": "{{personify-scim-server-password}}",
+						"showPassword": false
+					}
+				},
+				"url": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Users/b18fd14b-3d68-4dd7-a22a-b0434c1f755d",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "group create",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{personify-scim-server-user}}",
+						"password": "{{personify-scim-server-password}}",
+						"showPassword": false
+					}
+				},
+				"url": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Groups",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:Group\"],\n  \"displayName\": \"Springfield Inhabitants\",\n  \"members\":[\n    {\n      \"value\": \"570f6a4c-e2b7-4618-83c6-59a4e65fc1cd\",\n      \"$ref\": \"http://localhost:9029/scim/v2/Users/b18fd14b-3d68-4dd7-a22a-b0434c1f755d\",\n      \"type\": \"User\"\n    }\n  ]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "group get",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{personify-scim-server-user}}",
+						"password": "{{personify-scim-server-password}}",
+						"showPassword": false
+					}
+				},
+				"url": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Groups/e98b6d2a-efdd-4e0a-a66f-80f3041a56b2",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "group update",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{personify-scim-server-user}}",
+						"password": "{{personify-scim-server-password}}",
+						"showPassword": false
+					}
+				},
+				"url": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Groups/e98b6d2a-efdd-4e0a-a66f-80f3041a56b2",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:Group\"],\n  \"displayName\": \"Springfield Powerplant Employees\",\n  \"members\":[\n    {\n      \"value\": \"570f6a4c-e2b7-4618-83c6-59a4e65fc1cd\",\n      \"$ref\": \"http://localhost:9029/scim/v2/Users/b18fd14b-3d68-4dd7-a22a-b0434c1f755d\",\n      \"type\": \"User\"\n    }\n  ],\n  \"id\": \"e98b6d2a-efdd-4e0a-a66f-80f3041a56b2\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "group search",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{personify-scim-server-user}}",
+						"password": "{{personify-scim-server-password}}",
+						"showPassword": false
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9029/scim/v2/Groups?startIndex=1&count=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9029",
+					"path": [
+						"scim",
+						"v2",
+						"Groups"
+					],
+					"query": [
+						{
+							"key": "startIndex",
+							"value": "1"
+						},
+						{
+							"key": "count",
+							"value": "10"
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "group delete",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{personify-scim-server-user}}",
+						"password": "{{personify-scim-server-password}}",
+						"showPassword": false
+					}
+				},
+				"url": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Groups/e98b6d2a-efdd-4e0a-a66f-80f3041a56b2",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "me",
+			"request": {
+				"url": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Me",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2ltcHNvbmg6Y2hhbmdlaXQ=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "me update",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{personify-scim-server-user}}",
+						"password": "{{personify-scim-server-password}}",
+						"showPassword": false
+					}
+				},
+				"url": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Users/b18fd14b-3d68-4dd7-a22a-b0434c1f755d",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n    ],\n    \"name\": {\n        \"familyName\": \"Simpson\",\n        \"givenName\": \"Homer\"\n    },\n    \"userName\": \"simpsonh\",\n    \"password\": \"{{personify-scim-server-password}}\",\n    \"externalId\": \"homers\",\n    \"emails\": [\n        {\n            \"value\": \"homer.simpson@personify.be\",\n            \"type\": \"work\"\n        }\n    ],\n    \"id\": \"b18fd14b-3d68-4dd7-a22a-b0434c1f755d\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "bulk operations",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{personify-scim-server-user}}",
+						"password": "{{personify-scim-server-password}}",
+						"showPassword": false
+					}
+				},
+				"url": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Bulk",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"schemas\": [\"urn:ietf:params:scim:api:messages:2.0:BulkRequest\"],\n     \"Operations\": [\n       {\n         \"method\": \"POST\",\n         \"path\": \"/Users\",\n         \"bulkId\": \"qwerty\",\n         \"data\": {\n           \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:User\"],\n           \"userName\": \"Alice\",\n           \"externalId\": \"aliw\"\n         }\n       },\n       {\n         \"method\": \"POST\",\n         \"path\": \"/Groups\",\n         \"bulkId\": \"ytrewq\",\n         \"data\": {\n           \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:Group\"],\n           \"displayName\": \"Tour Guides\",\n           \"members\": [\n             {\n               \"type\": \"User\",\n               \"value\": \"bulkId:qwerty\"\n             }\n           ]\n         }\n       }\n     ]\n   }\n"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Discovery : ServiceProviderConfig",
+			"request": {
+				"url": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/ServiceProviderConfig",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2NpbS1yZWFkZXI6Y2hhbmdlaXQ=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Discovery : ResourceTypes",
+			"request": {
+				"url": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/ResourceTypes",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2NpbS1yZWFkZXI6Y2hhbmdlaXQ=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Discovery : Schemas",
+			"request": {
+				"url": "{{personify-scim-server-protocol}}://{{personify-scim-server-host}}/scim/v2/Schemas",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic c2NpbS1yZWFkZXI6Y2hhbmdlaXQ=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

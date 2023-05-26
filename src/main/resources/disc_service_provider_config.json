@@ -1,0 +1,51 @@
+{
+    "schemas": [
+    	"urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig"
+    ],
+    "documentationUri": "${exposed.protocol}://${exposed.host}/public/index.html",
+    "patch": {
+      "supported":true
+    },
+    "bulk": {
+      "supported":true,
+      "maxOperations":${scim.bulk.maxOperations},
+      "maxPayloadSize": ${scim.bulk.maxPayloadSize}
+    },
+    "filter": {
+      "supported":true,
+      "maxResults": ${scim.searchresult.defaultCount}
+    },
+    "changePassword": {
+      "supported":true
+    },
+    "sort": {
+      "supported":true
+    },
+    "etag": {
+      "supported":true
+    },
+    "authenticationSchemes": [
+      {
+        "name": "OAuth Bearer Token",
+        "description": "Authentication scheme using the OAuth Bearer Token Standard",
+        "specUri": "https://www.rfc-editor.org/info/rfc6750",
+        "documentationUri": "https://oauth.net/2/bearer-tokens/",
+        "type": "oauthbearertoken",
+        "primary": true
+      },
+      {
+        "name": "HTTP Basic",
+        "description": "Authentication scheme using the HTTP Basic Standard",
+        "specUri": "https://www.rfc-editor.org/info/rfc2617",
+        "documentationUri": "https://scim.personify.be/public/httpBasic.html",
+        "type": "httpbasic"
+       }
+    ],
+    "meta": {
+      "location": "${exposed.protocol}://${exposed.host}/scim/v2/ServiceProviderConfig",
+      "resourceType": "ServiceProviderConfig",
+      "created": "2019-09-09T17:20:22Z",
+      "lastModified": "2022-11-23T15:12:22Z",
+      "version": "W\/\"3694e05e9dff594\""
+    }
+  }

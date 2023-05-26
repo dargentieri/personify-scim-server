@@ -1,0 +1,9 @@
+target/
+*.log
+*.bak
+*.log.gz
+.classpath
+.project
+.settings
+.idea
+build-image

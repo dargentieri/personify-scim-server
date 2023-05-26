@@ -1,0 +1,70 @@
+{
+  "mapping" : {
+    "id" : "id",
+    "displayName" : "displayName",
+    "members" : "members",
+    "meta.created" : "datecreated",
+    "tenant" : "tenant"
+  },
+  "targetSystem" : {
+    "name" : "PSNFY4SCIM_GROUP",
+    "updateIfIdentical" : false,
+    "pingEnabled" : false,
+    "supportsPagination" : false,
+    "targetSystemAttributes" : [ 
+    {
+      "name" : "id",
+      "attributeType" : "STRING",
+      "readable" : true,
+      "writable" : true,
+      "multiValued" : false,
+      "primaryKey" : true
+    },
+    {
+      "name" : "displayName",
+      "attributeType" : "STRING",
+      "readable" : true,
+      "writable" : true,
+      "multiValued" : false,
+      "primaryKey" : false,
+      "indexed" : true
+    }, 
+    {
+      "name" : "members",
+      "attributeType" : "MAP",
+      "readable" : true,
+      "writable" : true,
+      "multiValued" : true,
+      "primaryKey" : false
+    }, 
+    {
+      "name" : "datecreated",
+      "attributeType" : "STRING",
+      "readable" : true,
+      "writable" : true,
+      "multiValued" : false,
+      "primaryKey" : false
+    },
+      {
+      "name" : "tenant",
+      "attributeType" : "STRING",
+      "readable" : true,
+      "writable" : true,
+      "multiValued" : false,
+      "primaryKey" : false,
+      "indexed" : true
+    }
+   ],
+    "connectorConfiguration" : {
+      "connectorType" : "PSNFYIDENTITY",
+      "poolSize" : ${scim.storage.personify.poolSize},
+      "configuration" : {
+           "url" : "http://localhost:9091/vault/api/organisation",
+           "authorizationUrl" : "http://localhost:9091/authentication/auth",
+           "identity" : "module-vault",
+           "credential" : "Azerty1234&",
+           "authentication-type" : "${scim.storage.personify.authentication-type}"
+      }
+    }
+  }
+}
